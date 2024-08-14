@@ -30,7 +30,7 @@ The project is designed with a simple yet effective interface, ensuring ease of 
         ```
 2. **Clone the repository:**
     ```bash
-    git clone https://github.com/CleonGaming/inventory-management-system.git
+    git clone https://github.com/CleonGaming/inventory_manager.git
     ```
 
 3. **Configure Database Connection:**
@@ -70,7 +70,10 @@ This will launch the Inventory Management System. Follow the on-screen prompts t
 
 ### Contributing Guidelines
 
-We welcome contributions to improve this project. Feel free to fork the repository, make changes, and submit a pull request. Before contributing, please make sure to review the code style and formatting guidelines (if any).
+We welcome contributions to improve this project. Feel free to fork the repository, make changes, and submit a pull request. Before contributing, please make sure to review the code style and formatting guidelines 
+(if any)
+
+
 ### Resources
 
 Throughout the development of this project, the following resources were instrumental:
