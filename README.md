@@ -84,6 +84,16 @@ Throughout the development of this project, the following resources were instrum
 - [**GeeksforGeeks**](https://www.geeksforgeeks.org/) - For reference examples.
 - [**CampusX**](https://youtube.com/@campusx-official?si=lTNShk8fkgogoTWS) - For learning Python basics.
 - [**NetworkChuck**](https://youtube.com/@networkchuck?si=YbPcdIdeAXq86Roh) - For learning SQL basics.
+
+
+
+### Feedback
+
+If you have any feedback, please reach out to me at:
+
+[Youtube](https://youtube.com/@cleongaming?si=Vi5hFyAE5R2iseb)
+
+
 ### License Information
 
 This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.  
