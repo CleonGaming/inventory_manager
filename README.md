@@ -1,1 +1,1 @@
-# inventory_manager
+# Inventory Manager System (IMS)
