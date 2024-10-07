@@ -102,9 +102,3 @@ If you have any feedback, please reach out to me at:
 This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.  
 
 We hope this Inventory Management System helps you organize your inventory effectively!
-
-
-
-```markdown
-*This README file was created with the help of ChatGPT and Gemini <3 
-``` 
