@@ -11,7 +11,8 @@ else:
 try:
   db = mysql.connector.connect(
       host="localhost",
-      user="root",
+      user="Cleo",
+      password = "",
       database="ims"
   )
   mycursor = db.cursor() 
