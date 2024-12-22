@@ -12,6 +12,8 @@ The project is designed with a simple yet effective interface, ensuring ease of 
 - **Search for an Item**: Quickly find an item in the inventory using search criteria.
 - **Update Item Quantity**: Adjust the quantity of items in stock.
 - **View Inventory**: Display the entire inventory list.
+- **View by Category**: Organize and display items based on their category.
+- **Sort Inventory**: Sort inventory items by name, price, or quantity for better organization.
 - **Generate Reports**: Create and save reports in .txt format (with plans for future format updates).
 - **Admin Mode**: Access administrative features for more control over the system.
 - **Exit**: Safely exit the application.
