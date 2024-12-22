@@ -12,7 +12,7 @@ try:
     db = mysql.connector.connect(
         host="localhost", 
         user="Cleo", 
-        password="forbot101", 
+        password="", 
         database="ims"
     )
     mycursor = db.cursor()
