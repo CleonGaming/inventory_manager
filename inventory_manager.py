@@ -41,7 +41,9 @@ def admin_startup():
       5. Update item quantity
       6. View inventory
       7. Generate reports
-      8. Exit 
+      8. View by category
+      9. Sort inventory 
+      10. Exit 
       ┈➤ """
     )
     print()
@@ -62,6 +64,10 @@ def admin_startup():
     elif option == "7":
         generate_reports(0)
     elif option == "8":
+        view_by_category(0)
+    elif option == "9":
+        sort_inventory(0)
+    elif option == "10":
         exit()
     else:
         print("╰┈➤ Invalid Input")
@@ -86,8 +92,10 @@ def user_startup():
       2. Update item quantity
       3. View inventory
       4. Generate reports
-      5. Enter Admin Mode
-      6. Exit 
+      5. View by category
+      6. Sort inventory
+      7. Enter Admin Mode
+      8. Exit 
       ┈➤ """
     )
     print()
@@ -102,8 +110,12 @@ def user_startup():
     elif option == "4":
         generate_reports(1)
     elif option == "5":
-        auth()  
+        view_by_category(1)
     elif option == "6":
+        sort_inventory(1)
+    elif option == "7":
+        auth()  
+    elif option == "8":
         exit()
     else:
         print("╰┈➤ Invalid Input")
@@ -215,6 +227,11 @@ def delete_item():
     query = "SELECT * FROM inventory WHERE Id = %s "
     values = (usr_id,)
     mycursor.execute(query,values)
+    
+    print("-" * 70)
+    print(f"{'ID':<5} {'Item':<25} {'Price':<10} {'Stock':^10} {'Category':<15}")
+    print("-" * 70)
+    
     for i in mycursor:
         print(i)
 
@@ -269,6 +286,8 @@ def search_item(mode):
         print(f"Error: {err}")
 
     # Showing Results
+    print("-" * 70)
+    print(f"{'ID':<5} {'Item':<25} {'Price':<10} {'Stock':^10} {'Category':<15}")
     for i in mycursor:
         id, name, price, stock, category = i
         dash = len(f"{id:<5} {name:<25} ${price:<10.2f} {stock:^10} {category}")
@@ -323,6 +342,9 @@ def view_inventory(mode):
     mycursor.execute(query)
 
     # Showing Results
+    print("-" * 70)
+    print(f"{'ID':<5} {'Item':<25} {'Price':<10} {'Stock':^10} {'Category':<15}")
+    
     for i in mycursor:
         id, name, price, stock, category = i
         dash = len(f"{id:<5} {name:<25} ${price:<10.2f} {stock:^10} {category}")
@@ -374,6 +396,116 @@ def generate_reports(mode):
     else:
         admin_startup()
 
+# View By Category Function
+def view_by_category(mode):
+    """Function to view inventory items filtered by category"""
+    
+    print("\nAvailable Categories:")
+    # Get unique categories from database
+    query = "SELECT DISTINCT Category FROM inventory ORDER BY Category"
+    try:
+        mycursor.execute(query)
+        categories = [category[0] for category in mycursor]
+        
+        # Display available categories
+        for i, category in enumerate(categories, 1):
+            print(f"{i}. {category}")
+            
+        # Get category choice from user
+        usr_choice = input("\nEnter Category Name ➤ ")
+        
+        # Query items in selected category
+        query = "SELECT * FROM inventory WHERE Category = %s"
+        values = (usr_choice,)
+        mycursor.execute(query, values)
+        
+        # Display results
+        items_found = False
+
+        print("-" * 70)
+        print(f"{'ID':<5} {'Item':<25} {'Price':<10} {'Stock':^10} {'Category':<15}")
+        print("-" * 70)
+        
+        for i in mycursor:
+            items_found = True
+            id, name, price, stock, category = i
+            print(f"{id:<5} {name:<25} ${price:<10.2f} {stock:^10} {category}")
+            
+        if not items_found:
+            print("No items found in this category!")
+        print("-" * 70)
+        
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+    
+    input("Hit Enter To Continue")
+    if mode == 1:
+        user_startup()
+    else:
+        admin_startup()
+
+# Sort Function
+def sort_inventory(mode):
+    """Function to view inventory sorted by different criteria"""
+    
+    print("\nSort inventory by:")
+    print("1. Name")
+    print("2. Price (Low to High)")
+    print("3. Price (High to Low)")
+    print("4. Quantity (Low to High)")
+    print("5. Quantity (High to Low)")
+    
+    sort_choice = input("\n➤ Enter your choice (1-5): ")
+    
+    # Define the query based on user's choice
+    if sort_choice == "1":
+        query = "SELECT * FROM inventory ORDER BY Item"
+        sort_by = "Name"
+    elif sort_choice == "2":
+        query = "SELECT * FROM inventory ORDER BY Price"
+        sort_by = "Price (Low to High)"
+    elif sort_choice == "3":
+        query = "SELECT * FROM inventory ORDER BY Price DESC"
+        sort_by = "Price (High to Low)"
+    elif sort_choice == "4":
+        query = "SELECT * FROM inventory ORDER BY Stock"
+        sort_by = "Quantity (Low to High)"
+    elif sort_choice == "5":
+        query = "SELECT * FROM inventory ORDER BY Stock DESC"
+        sort_by = "Quantity (High to Low)"
+    else:
+        print("Invalid choice!")
+        input("Hit Enter To Continue")
+        if mode == 1:
+            user_startup()
+        else:
+            admin_startup()
+        return
+    
+    try:
+        # Execute the query
+        mycursor.execute(query)
+        
+        # Display results
+        print(f"\nInventory Sorted by: {sort_by}")
+        print("-" * 70)
+        print(f"{'ID':<5} {'Item':<25} {'Price':<10} {'Stock':^10} {'Category':<15}")
+        print("-" * 70)
+        
+        for i in mycursor:
+            id, name, price, stock, category = i
+            print(f"{id:<5} {name:<25} ${price:<10.2f} {stock:^10} {category}")
+            
+        print("-" * 70)
+        
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+    
+    input("Hit Enter To Continue")
+    if mode == 1:
+        user_startup()
+    else:
+        admin_startup()
 
 def exit():
     """
@@ -383,7 +515,6 @@ def exit():
     print("   Thank You")
     print("╰┈┈┈┈┈┈┈┈┈┈┈┈┈╯")
     return None
-
 
 if __name__ == "__main__":
     user_startup()
